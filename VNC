@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Verificar si el script se está ejecutando como el usuario 'developer'
+if [ "$(whoami)" != "developer" ]; then
+    echo "Este script debe ejecutarse como el usuario 'developer'"
+    exec sudo -u developer "$0" "$@"
+    exit 1
+fi
+
+# Crear el directorio de configuración de VNC si no existe
+mkdir -p /home/developer/.vnc
+
+# Configurar la contraseña de VNC de forma segura
+echo "@ITB2025" | vncpasswd -f > /home/developer/.vnc/passwd
+chmod 600 /home/developer/.vnc/passwd
+chown -R developer:developer /home/developer/.vnc
+
+# Crear el archivo .Xauthority para autenticación de X11
+touch /home/developer/.Xauthority
+chown developer:developer /home/developer/.Xauthority
+
+# Iniciar Xvfb para emular un servidor X virtual
+Xvfb :0 -screen 0 1024x768x24 &
+
+# Definir la variable DISPLAY para el entorno gráfico
+export DISPLAY=:0
+
+# Iniciar el servidor VNC con la contraseña establecida
+x11vnc -forever -display :0 -passwd @ITB2025 &
+
+# Iniciar el servicio SSH para acceso remoto
+sudo service ssh start
+
+# Abrir GNOME Terminal en la sesión gráfica
+gnome-terminal --display=:0 &
+
+# Iniciar el entorno de escritorio XFCE
+exec xfce4-session
