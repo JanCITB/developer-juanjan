@@ -27,4 +27,7 @@ docker run -d --name dev-container -p 5900:5900 -p 2223:22 your_user/developer
 ssh developer@localhost -p 2223
 ```
 
+### 📌 Archivos:
+He añadido al git-hub developer-juanjan los archivos que he utilizado.
+
 ---
