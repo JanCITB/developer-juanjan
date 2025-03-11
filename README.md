@@ -1,16 +1,4 @@
 # **Developer Docker Image**
-
-Aquest repositori conté un `Dockerfile` per crear una imatge Docker d'un entorn de desenvolupament amb **VNC, Visual Studio Code i Python**.
-
-## **📌 Característiques**
-
-✅ **Ubuntu 24.04** amb entorn **XFCE4**  
-✅ **Servidor VNC** per accedir a l'escriptori remot  
-✅ **Visual Studio Code** preinstal·lat  
-✅ **Python & Flask** per a desenvolupament  
-✅ **Client psql** per connectar-se a PostgreSQL  
-✅ **Servidor SSH** per accedir al contenidor  
-
 ---
 
 ## **🚀 Com utilitzar-lo**
@@ -23,12 +11,12 @@ cd developer-docker-image
 
 ### **2️⃣ Construir la imatge**
 ```bash
-docker build -t your_user/developer-env .
+docker build -t your_user/developer .
 ```
 
 ### **3️⃣ Executar el contenidor**
 ```bash
-docker run -d --name dev-container -p 5900:5900 -p 2223:22 your_user/developer-env
+docker run -d --name dev-container -p 5900:5900 -p 2223:22 your_user/developer
 ```
 
 ### **4️⃣ Accedir a l'entorn**
